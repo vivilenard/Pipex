@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/23 19:48:20 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/23 20:57:36 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ char	*ft_searchbinary(char **env)
 	i = 0;
 	while (*env[i])
 	{
-			// ft_putstr_fd(env[i], 1);
-			// write (1, "\n", 1);
-		//ft_printf("%s\n", ft_haystack(env[i], "PATH"));
-
 		if (ft_haystack(env[i], "PATH") != NULL)
 			return (env[i]);
 		i++;
@@ -30,15 +26,43 @@ char	*ft_searchbinary(char **env)
 	return (NULL);
 }
 
+void	ft_lookforaccess(char **path)
+{
+	char	**paths;
+	int		i;
+
+	i = 0;
+	paths = ft_split(*path, ':');
+	if (!paths)
+		exit (0);
+	//free (path);
+	ft_printf("\nHere are the paths:\n");
+	while (path[i])
+	{
+		ft_putstr_fd(paths[i], 1);
+		write (1, "\n", 1);
+		if (access(paths[i], X_OK) == 0)
+		{
+			ft_printf("success!!!!!! for %i\n", i);      //hier bin ich
+		}
+		i++;
+	}
+}
+
 int ft_makemeachild(int *fdpipe, char **argv, char **env)
 {
 	int	pid1;
+	char *path;
 
 	ft_printf("av: %s\n", argv[2]);
 	pid1 = fork();
 	if (pid1 == 0)
 	{
-		ft_printf("Path is: %s\n", ft_searchbinary(env));
+		path = ft_searchbinary(env);
+		ft_printf("Path is: %s\n", path);
+		if (path == NULL)
+			exit (0);
+		ft_lookforaccess(&path);
 							ft_printf("PID1 = %d hi\n", pid1);
 		ft_printf("pid1 %d\n fdpipe %d\n", pid1, fdpipe[0]);
 	}

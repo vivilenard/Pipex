@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:59:12 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/23 19:23:12 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:40:58 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int			ft_atoi(const char *str);
 void		*ft_calloc(size_t count, size_t size);
 char		*ft_strdup(const char *s);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin(char *s1, char *s2);
+char		*ft_strjoinwithoutfree(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
@@ -81,4 +82,5 @@ int			ft_iss(va_list args, int print_length);
 int			ft_putandcountstr(char *str, int print_length);
 double		ft_atodouble(char *str);
 char		*ft_haystack(const char *haystack, const char *needle);
+void		ft_free2d(char **s);
 #endif

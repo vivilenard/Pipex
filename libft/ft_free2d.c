@@ -1,41 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_free2d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 10:25:48 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/24 16:32:15 by vlenard          ###   ########.fr       */
+/*   Created: 2023/01/12 14:29:39 by vlenard           #+#    #+#             */
+/*   Updated: 2023/01/24 16:41:16 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+void	ft_free2d(char **s)
 {
-	char	*str;
-	size_t	i;
-	size_t	len;
-	size_t	n;
+	int	i;
 
-	len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	str = malloc(len * sizeof(char));
-	if (!str)
-		return (NULL);
 	i = 0;
-	while (s1[i] != '\0')
+	while (s[i])
 	{
-		str[i] = s1[i];
+		free(s[i]);
 		i++;
 	}
-	n = 0;
-	while (s2[n] != '\0')
-	{
-		str[i] = s2[n];
-		i++;
-		n++;
-	}
-	str[len - 1] = '\0';
-	return (free(s1), str);
+	free(s);
 }

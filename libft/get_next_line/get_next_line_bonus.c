@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:35:47 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/23 10:41:38 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:18:28 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_readtostat(int fd, char *stat)
 		if (flag == 0)
 			return (free(buf), stat);
 		buf[flag] = '\0';
-		stat = ft_strjoin(stat, buf);
+		stat = ft_strjoin_gnl(stat, buf);
 	}
 	return (stat);
 }

@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:30:41 by vlenard           #+#    #+#             */
-/*   Updated: 2022/12/02 13:13:52 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:18:05 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin_gnl(char *s1, char *s2);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(char *s);
 

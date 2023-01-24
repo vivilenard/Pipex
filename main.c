@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/24 21:28:53 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/24 21:41:30 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,37 @@ void ft_closepipe(int *fdpipe)
 	close(fdpipe[1]);
 }
 
-int ft_makemeachild(char **argv, char **env, int i)
+int ft_makemeachild(char **argv, char **env)
 {
 	int	pid1;
+	int	pid2;
 	int	fdpipe[2];
-	//int	savestdout;
+	int	savestdout;
+	int	i = 2;    // do we have one call or two?
 
 	if (pipe(fdpipe) == -1)
 		return (0);
 	pid1 = fork();
 	if (pid1 == 0)
 	{
-		ft_execute(argv, env, i);
+		if (i == 2)
+		{
+			savestdout = dup(STDERR_FILENO);
+			dup2(fdpipe[1], STDOUT_FILENO);
+		}
+		ft_execute(argv, env, 2);
+		ft_closepipe(fdpipe);
+	}
+	if (i == 2)
+	{
+		pid2 = fork();
+		if (pid2 == 0)
+		{
+			dup2(fdpipe[0], STDIN_FILENO);
+			ft_closepipe(fdpipe);
+			//dup2(savestdout, STDOUT_FILENO);
+			ft_execute(argv, env, 3);
+		}
 	}
 	wait(NULL);
 	ft_closepipe(fdpipe);
@@ -111,15 +130,13 @@ int main(int argc, char **argv, char **env)
 {
 	int stdin;
 	int fd;
-	int	i;
 	
 	if (argc < 1)
 		return (0);
-	i = 2;
 	stdin = dup(STDIN_FILENO);
 	fd = open("file1", O_RDONLY);
 	fd = dup2(fd, STDIN_FILENO);
-	ft_makemeachild(argv, env, i);
+	ft_makemeachild(argv, env);
 	dup2(stdin, STDIN_FILENO);
 	close(fd);
 	//system ("leaks pipex");

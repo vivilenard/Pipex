@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/24 20:21:41 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/24 21:28:53 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,43 @@ char	*ft_lookforaccess(char *path, char *arg)
 	return (NULL);
 }
 
-int ft_makemeachild(char **argv, char **env)
+int	ft_execute(char **argv, char **env, int i)
 {
-	int	pid1;
 	char *path;
 	char **args;
+	
+	path = ft_searchbinary(env);
+	path = ft_lookforaccess(path, argv[i]);
+	args = ft_split(argv[i], ' ');
+	if (execve(path, args, env) == -1)
+		exit (0);
+			ft_printf("path: %s\n", path);
+	free(path);
+	free(args);
+	return (0);
+}
 
+void ft_closepipe(int *fdpipe)
+{
+	close(fdpipe[0]);
+	close(fdpipe[1]);
+}
+
+int ft_makemeachild(char **argv, char **env, int i)
+{
+	int	pid1;
+	int	fdpipe[2];
+	//int	savestdout;
+
+	if (pipe(fdpipe) == -1)
+		return (0);
 	pid1 = fork();
 	if (pid1 == 0)
 	{
-		path = ft_searchbinary(env);
-		path = ft_lookforaccess(path, argv[2]);
-		args = ft_split(argv[2], ' ');
-		if (execve(path, args, env) == -1)
-			exit (0);
-				ft_printf("path: %s\n", path);
-		free(path);
-		free(args);
+		ft_execute(argv, env, i);
 	}
 	wait(NULL);
+	ft_closepipe(fdpipe);
 	return (0);
 }
 
@@ -93,19 +111,19 @@ int main(int argc, char **argv, char **env)
 {
 	int stdin;
 	int fd;
-	int	fdpipe[1];
+	int	i;
 	
 	if (argc < 1)
 		return (0);
+	i = 2;
 	stdin = dup(STDIN_FILENO);
 	fd = open("file1", O_RDONLY);
 	fd = dup2(fd, STDIN_FILENO);
-	if (pipe(fdpipe) == -1)
-		return (0);
-	ft_makemeachild(argv, env);
-
+	ft_makemeachild(argv, env, i);
 	dup2(stdin, STDIN_FILENO);
 	close(fd);
 	//system ("leaks pipex");
 	return (0);
 }
+		// savestdout = dup(STDERR_FILENO);
+		// dup2(fdpipe[1], STDOUT_FILENO);

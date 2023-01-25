@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/25 12:29:04 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/25 22:11:32 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	ft_makemeachild(int argc, char **argv, char **env)
 	if (pid2 == 0)
 	{
 		dup2(fdpipe[0], STDIN_FILENO);
-		dup2(open(argv[argc - 1], O_WRONLY), STDOUT_FILENO);
+		argc = 1; //dont need
+		//dup2(open(argv[argc - 1], O_WRONLY), STDOUT_FILENO);
 		ft_closepipe(fdpipe);
 		ft_execute(argv, env, 3);
 	}
@@ -48,11 +49,12 @@ int	main(int argc, char **argv, char **env)
 	if (argc < 5)
 		return (0);
 	ft_checkfiles(argc, argv);
+	ft_emptystr(argc, argv);
 	stdin = dup(STDIN_FILENO);
 	fd = open(argv[1], O_RDONLY);
 	fd = dup2(fd, STDIN_FILENO);
 	ft_makemeachild(argc, argv, env);
 	close(fd);
+	//system ("leaks pipex");
 	return (0);
 }
-	//system ("leaks pipex");

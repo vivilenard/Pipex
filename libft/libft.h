@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 16:59:12 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/25 12:33:23 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/25 21:57:30 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <stdio.h>
 
 typedef struct s_list
 {
@@ -83,4 +84,5 @@ int			ft_putandcountstr(char *str, int print_length);
 double		ft_atodouble(char *str);
 char		*ft_haystack(const char *haystack, const char *needle);
 void		ft_free2d(char **s);
+int			ft_iswhitespace(char c);
 #endif

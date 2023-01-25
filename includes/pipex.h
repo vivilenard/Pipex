@@ -6,16 +6,16 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:11:55 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/25 12:19:39 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/25 12:33:37 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-#include <unistd.h>
-#include <fcntl.h>
-#include "../libft/libft.h"
+# include <unistd.h>
+# include <fcntl.h>
+# include "../libft/libft.h"
 
 char	*ft_searchbinary(char **env);
 char	*ft_addscriptname(char *path, char *command);

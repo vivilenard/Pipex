@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:10:37 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/27 15:31:21 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:46:38 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char **ft_splitonce(char *s)
 	return (str);
 }
 
-int	ft_execute(char **argv, char **env, int i)
+int	ft_execute(char **argv, char **env, int i, t_struct *s)
 {
 	char	*path;
 	char	**args;
@@ -96,7 +96,7 @@ int	ft_execute(char **argv, char **env, int i)
 	else
 		args = ft_split(argv[i], ' ');
 	//ft_printf("path; %s, args: %s, %s, %s\n", path, args[0], args[1], args[2]);
-	if (execve(path, args, env) == -1)
+	if (execve(path, args, s->env) == -1)
 		perror ("Execve");
 	free(path);
 	free(args);

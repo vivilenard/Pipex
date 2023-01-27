@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/27 17:06:03 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:31:17 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_firstchild(int *fdpipe, int i, t_struct *s)
 	{
 		if (dup2(fdpipe[1], STDOUT_FILENO) == -1)
 			perror ("Pipe in Stdout");
-		ft_execute(s->argv, s->env, i);
+		ft_execute(s->argv, s->env, i, s);
 		ft_closepipe(fdpipe);
 	}
 }
@@ -43,7 +43,7 @@ void	ft_lastchild(int *fdpipe, int i, t_struct *s)
 		dup2(fdpipe[0], STDIN_FILENO);
 		dup2(open(s->argv[s->argc - 1], O_WRONLY), STDOUT_FILENO);
 		ft_closepipe(fdpipe);
-		ft_execute(s->argv, s->env, i);
+		ft_execute(s->argv, s->env, i, s);
 	}
 	ft_closepipe(fdpipe);
 }
@@ -58,7 +58,7 @@ void	ft_middlechild(int *fdpipe, int i, t_struct *s)
 		if (dup2(fdpipe[1], STDOUT_FILENO) == -1)
 			perror ("Middlepipe");
 		ft_closepipe(fdpipe);
-		ft_execute(s->argv, s->env, i);
+		ft_execute(s->argv, s->env, i, s);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/27 15:30:49 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:06:03 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void ft_initstruct(int argc, char **argv, char **env, t_struct **s)
 	(*s)->env = env;
 }
 
-void	ft_child_one(int *fdpipe, int i, char **argv, char **env)
+void	ft_firstchild(int *fdpipe, int i, t_struct *s)
 {
 	int	pid1;
 
@@ -29,39 +29,38 @@ void	ft_child_one(int *fdpipe, int i, char **argv, char **env)
 	{
 		if (dup2(fdpipe[1], STDOUT_FILENO) == -1)
 			perror ("Pipe in Stdout");
-		ft_execute(argv, env, i);
+		ft_execute(s->argv, s->env, i);
 		ft_closepipe(fdpipe);
 	}
 }
 
-void	ft_child_two(int *fdpipe, int i, char **argv, char **env)
+void	ft_lastchild(int *fdpipe, int i, t_struct *s)
 {
 	int	pid2;
 	pid2 = fork();
 	if (pid2 == 0)
 	{
 		dup2(fdpipe[0], STDIN_FILENO);
-		//argc = 1; //dont need
-		//dup2(open(s->argv[s->argc - 1], O_WRONLY), STDOUT_FILENO);
+		dup2(open(s->argv[s->argc - 1], O_WRONLY), STDOUT_FILENO);
 		ft_closepipe(fdpipe);
-		ft_execute(argv, env, i);
+		ft_execute(s->argv, s->env, i);
 	}
+	ft_closepipe(fdpipe);
 }
 
-// void	ft_child_middle(int *fdpipe, char **argv, char **env)
-// {
-// 	int	pid2;
-// 	pid2 = fork();
-// 	if (pid2 == 0)
-// 	{
-// 		dup2(fdpipe[0], STDIN_FILENO);
-// 		if (pipe(fdpipe) == -1)
-// 			perror ("Middlepipe");
-// 		dup2(fdpipe[1], STDOUT_FILENO) == -1;
-// 		ft_closepipe(fdpipe);
-// 		ft_execute(argv, env, 3);
-// 	}
-// }
+void	ft_middlechild(int *fdpipe, int i, t_struct *s)
+{
+	int	pid3;
+
+	pid3 = fork();
+	if (pid3 == 0)
+	{
+		if (dup2(fdpipe[1], STDOUT_FILENO) == -1)
+			perror ("Middlepipe");
+		ft_closepipe(fdpipe);
+		ft_execute(s->argv, s->env, i);
+	}
+}
 
 int	ft_makemeachild(int argc, char **argv, char **env)
 {
@@ -74,14 +73,19 @@ int	ft_makemeachild(int argc, char **argv, char **env)
 	i = 2;
 	if (pipe(fdpipe) == -1)
 		perror ("Pipe");
-	ft_child_one(fdpipe, i, argv, env);
-	// while (argv < 5 && i < argv - 5)
-	// {
-	// 	ft_child_middle(fdpipe, argv, env);
-	// }
-	ft_child_two(fdpipe, i + 1, argv, env);
+	ft_firstchild(fdpipe, i, s);
+	i += 1;
+	while (argc > 5 && i < argc - 2)
+	{
+		dup2(fdpipe[0], STDIN_FILENO);
+		ft_closepipe(fdpipe);
+		if (pipe(fdpipe) == -1)
+		 	perror ("Middlepipe");
+		ft_middlechild(fdpipe, i, s);
+		i += 1;
+	}
+	ft_lastchild(fdpipe, i, s);
 	wait(NULL);
-	ft_closepipe(fdpipe);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:12:20 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/25 22:11:37 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/27 10:58:00 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	ft_emptystr(int argc, char **argv)
 
 void	ft_closepipe(int *fdpipe)
 {
-	close(fdpipe[0]);
-	close(fdpipe[1]);
+	if (close(fdpipe[0]) == -1)
+		perror ("Closing pipe");
+	if (close(fdpipe[1]) == -1)
+		perror ("Closing pipe");
 }

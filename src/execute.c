@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:10:37 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/27 17:46:38 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/30 16:31:11 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,22 @@ char	*ft_lookforaccess(char *path, char *arg)
 	return (NULL);
 }
 
-char **ft_splitonce(char *s)
+char	**ft_splitonce(char *s)
 {
 	char	**str;
 	int		i;
 
-	str = malloc(3 * sizeof(char*));
+	str = malloc(3 * sizeof(char *));
 	str[2] = NULL;
 	i = 0;
 	while (s[i] && ft_iswhitespace(s[i]) == 0)
 		i++;
 	if (!s[i])
-		return (free(str), NULL);	
+		return (free(str), NULL);
 	str[0] = malloc(i);
 	ft_strlcpy(str[0], s, i + 1);
 	str[1] = ft_strdup(s + i + 1);
 	str[1] = ft_strtrim(str[1], "'");
-	//ft_printf("1:%s, 2:%s 3:%s\n", str[0], str[1], str[2]);
 	return (str);
 }
 
@@ -95,7 +94,6 @@ int	ft_execute(char **argv, char **env, int i, t_struct *s)
 		args = ft_splitonce(argv[i]);
 	else
 		args = ft_split(argv[i], ' ');
-	//ft_printf("path; %s, args: %s, %s, %s\n", path, args[0], args[1], args[2]);
 	if (execve(path, args, s->env) == -1)
 		perror ("Execve");
 	free(path);

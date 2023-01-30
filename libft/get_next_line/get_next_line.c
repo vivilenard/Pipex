@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:35:47 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/24 16:18:28 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/30 07:15:04 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 char	*ft_readtostat(int fd, char *stat)
 {
@@ -18,7 +18,7 @@ char	*ft_readtostat(int fd, char *stat)
 	char	*buf;
 
 	flag = 9;
-	while (flag != 0 && ft_strchr(stat, '\n') == 0)
+	while (flag != 0 && ft_strchr_gnl(stat, '\n') == 0)
 	{
 		buf = malloc(BUFFER_SIZE + 1);
 		if (!buf)
@@ -50,7 +50,7 @@ char	*ft_addanend(char *stat, char **line, int i)
 		if (stat[i + 1] == '\0')
 			return (free (stat), NULL);
 	}
-	buf = ft_strdup(stat + i + 1);
+	buf = ft_strdup_gnl(stat + i + 1);
 	return (free (stat), buf);
 }
 

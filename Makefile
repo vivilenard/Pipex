@@ -6,14 +6,15 @@
 #    By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 15:04:49 by vlenard           #+#    #+#              #
-#    Updated: 2023/01/25 12:18:31 by vlenard          ###   ########.fr        #
+#    Updated: 2023/01/30 16:24:50 by vlenard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-SRC = 	src/main.c src/execute.c src/utils.c
+SRC = 	src/main.c src/execute.c src/utils.c src/children.c \
+		libft/get_next_line/get_next_line.c libft/get_next_line/get_next_line_utils.c
 OBJS = $(SRC:.c=.o)
 LIBFT = libft/libft.a
 

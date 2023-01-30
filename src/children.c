@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:12:59 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/30 16:31:02 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/01/30 16:36:45 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_makemeachild(int argc, char **argv, char **env)
 		i += 1;
 	}
 	ft_lastchild(fdpipe, i, s);
-	wait(NULL);
+	waitpid(0, NULL, 0);
 	return (free(s), 0);
 }
 

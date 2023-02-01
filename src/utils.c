@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:12:20 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/01 13:18:31 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/01 13:22:54 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_checkfiles(int argc, char **argv)
 {
 	if (ft_strcmp(argv[1], "here_doc") != 0)
 		open(argv[argc - 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	else 
+	else
 		open(argv[argc - 1], O_CREAT | O_APPEND | O_WRONLY, 0644);
 	if (access(argv[1], R_OK) == -1)
 	{

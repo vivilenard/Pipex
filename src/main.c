@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/01 13:18:21 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/01 13:22:46 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc < 5)
 	{
-		ft_printf("Please enter 'infile', two commands as strings and 'outfile'\n");
+		ft_printf("Please enter 'infile', two commands");
+		ft_printf(" as strings and 'outfile'\n");
 		return (0);
 	}
 	if (ft_strcmp(argv[1], "here_doc") == 0)

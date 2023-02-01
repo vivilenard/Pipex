@@ -6,36 +6,13 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:12:59 by vlenard           #+#    #+#             */
-/*   Updated: 2023/01/30 16:36:45 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/01 12:59:35 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	ft_heredoc(char **argv)
-{
-	int		fd;
-	char	*line;
-
-	fd = open("here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	while (1)
-	{
-		write(0, ">", 1);
-		line = get_next_line(0);
-		if (!line)
-			perror("gets no line");
-		if (ft_strncmp(argv[2], line, ft_strlen(argv[2])) == 0)
-		{
-			free(line);
-			return ;
-		}
-		if (write(fd, line, ft_strlen(line)) == -1)
-			perror("write to here_doc.txt");
-		free (line);
-	}
-}
-
-int	ft_makemeachild(int argc, char **argv, char **env)
+int	ft_createchildren(int argc, char **argv, char **env)
 {
 	t_struct	*s;
 	int			fdpipe[2];
@@ -84,7 +61,10 @@ void	ft_lastchild(int *fdpipe, int i, t_struct *s)
 	if (pid2 == 0)
 	{
 		dup2(fdpipe[0], STDIN_FILENO);
-		dup2(open(s->argv[s->argc - 1], O_WRONLY), STDOUT_FILENO);
+		if (ft_strcmp(s->argv[1], "here_doc") != 0)
+			dup2(open(s->argv[s->argc - 1], O_WRONLY, 0644), STDOUT_FILENO);
+		else
+			dup2(open(s->argv[s->argc - 1], O_APPEND | O_WRONLY, 0644), STDOUT_FILENO);
 		ft_closepipe(fdpipe);
 		ft_execute(s->argv, s->env, i, s);
 	}

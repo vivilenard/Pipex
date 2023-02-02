@@ -6,16 +6,15 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/02 16:11:27 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:20:21 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	ft_exit ()
+void	ft_exit(void)
 {
 	unlink("here_doc");
-	system ("leaks pipex");
 	exit (0);
 }
 

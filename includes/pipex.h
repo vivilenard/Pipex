@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:11:55 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/02 16:09:13 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:19:32 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	ft_middlechild(int *fdpipe, int i, t_struct *s);
 int		ft_createchildren(int argc, char **argv, char **env);
 int		ft_isheredoc(char **argv);
 void	ft_heredoc(char **argv);
-void	ft_exit ();
+void	ft_exit(void);
 
 #endif

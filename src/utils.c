@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:12:20 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/01 13:22:54 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:10:03 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_checkfiles(int argc, char **argv)
 	if (access(argv[1], R_OK) == -1)
 	{
 		ft_printf("zsh: no such file or directory: %s\n", argv[1]);
-		exit (0);
+		ft_exit ();
 	}
 }
 
@@ -51,7 +51,7 @@ void	ft_emptystr(int argc, char **argv)
 		{
 			ft_printf("You entered an empty string.\n");
 			ft_printf("Please fill it with a shell command.\n");
-			exit (0);
+			ft_exit ();
 		}
 		i++;
 	}

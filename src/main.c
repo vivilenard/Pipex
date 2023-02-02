@@ -6,11 +6,18 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/01 13:22:46 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:11:27 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+void	ft_exit ()
+{
+	unlink("here_doc");
+	system ("leaks pipex");
+	exit (0);
+}
 
 void	ft_heredoc(char **argv)
 {
@@ -25,9 +32,10 @@ void	ft_heredoc(char **argv)
 		if (!line)
 		{
 			perror("gets no line");
-			exit (0);
+			ft_exit ();
 		}
-		if (ft_strncmp(argv[2], line, ft_strlen(argv[2])) == 0)
+		if (ft_strncmp(argv[2], line, ft_strlen(argv[2])) == 0
+			&& ft_strlen(line) == ft_strlen(argv[2]) + 1)
 		{
 			free(line);
 			return ;
@@ -55,5 +63,6 @@ int	main(int argc, char **argv, char **env)
 	fd = open(argv[1], O_RDONLY);
 	fd = dup2(fd, STDIN_FILENO);
 	ft_createchildren(argc, argv, env);
+	ft_exit();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:10:37 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/01 13:19:14 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:09:55 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_lookforaccess(char *path, char *arg)
 	command = ft_split(arg, ' ');
 	rightpath = NULL;
 	if (!command || !paths)
-		exit (0);
+		ft_exit (0);
 	while (paths[i])
 	{
 		paths[i] = ft_addscriptname(paths[i], command[0]);
@@ -59,6 +59,8 @@ char	*ft_lookforaccess(char *path, char *arg)
 	ft_free2d(command);
 	if (rightpath)
 		return (rightpath);
+	if (rightpath == NULL)
+		ft_exit ();
 	return (NULL);
 }
 
@@ -97,6 +99,7 @@ int	ft_execute(char **argv, char **env, int i, t_struct *s)
 	if (execve(path, args, s->env) == -1)
 		perror ("Execve");
 	free(path);
-	free(args);
+	ft_free2d(args);
+	ft_exit ();
 	return (0);
 }

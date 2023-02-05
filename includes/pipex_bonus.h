@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:11:55 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 19:38:29 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/05 19:40:06 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_struct
 
 char	*ft_searchbinary(char **env);
 char	*ft_addscriptname(char *path, char *command);
-char	*ft_lookforaccess(char *path, char *arg);
+char	*ft_lookforaccess(char *path, char *arg, t_struct *s);
 int		ft_execute(char **argv, char **env, int i, t_struct *s);
 void	ft_checkfiles(int argc, char **argv);
 void	ft_closepipe(int *fdpipe);

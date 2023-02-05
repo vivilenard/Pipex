@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:11:55 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 19:38:24 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/05 20:50:23 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line/get_next_line.h"
 

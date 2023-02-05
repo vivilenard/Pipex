@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:11:55 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 19:40:06 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/05 20:50:37 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_BONUS_H
 
 # include <unistd.h>
+# include <sys/wait.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line/get_next_line.h"

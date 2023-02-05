@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:10:37 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 19:38:41 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/05 21:04:53 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_execute(char **argv, char **env, int i, t_struct *s)
 	char	**args;
 
 	path = ft_searchbinary(env);
-	path = ft_lookforaccess(path, argv[i]);
+	path = ft_lookforaccess(path, argv[i], s);
 	if (ft_strncmp(argv[i], "awk", 3) == 0
 		|| ft_strncmp(argv[i], "grep", 4) == 0
 		|| ft_strncmp(argv[i], "echo", 4) == 0)

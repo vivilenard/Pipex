@@ -6,7 +6,7 @@
 #    By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 15:04:49 by vlenard           #+#    #+#              #
-#    Updated: 2023/02/05 18:20:08 by vlenard          ###   ########.fr        #
+#    Updated: 2023/02/05 20:59:15 by vlenard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ $(NAME): $(LIBFT) $(OBJS)
 bonus: $(LIBFT) $(OBJBONUS)
 		$(CC) $(OBJBONUS) $(LIBFT) -o $(NAME)
 $(LIBFT): 
-		cd libft && make && make clean
+		cd libft && make
 n:
 		norminette $(SRC) $(NAME).h
 clean :

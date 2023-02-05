@@ -6,7 +6,7 @@
 #    By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 15:04:49 by vlenard           #+#    #+#              #
-#    Updated: 2023/02/05 20:59:15 by vlenard          ###   ########.fr        #
+#    Updated: 2023/02/05 21:20:18 by vlenard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,15 +24,15 @@ all: $(NAME)
 $(NAME): $(LIBFT) $(OBJS)
 		$(CC) $(OBJS) $(LIBFT) -o $(NAME)
 bonus: $(LIBFT) $(OBJBONUS)
-		$(CC) $(OBJBONUS) $(LIBFT) -o $(NAME)
+		$(CC) $(OBJBONUS) $(LIBFT) -o $(NAME)_bonus
 $(LIBFT): 
 		cd libft && make
 n:
-		norminette $(SRC) $(NAME).h
+		norminette
 clean :
 		rm -f $(OBJS) $(OBJBONUS)
 fclean : clean
-		rm -f ./$(NAME)
+		rm -f ./$(NAME) ./$(NAME)_bonus out
 re : fclean
 		$(MAKE)
 .PHONY: all, n, clean, fclean, re, v, $(LIBFT), $(NAME)

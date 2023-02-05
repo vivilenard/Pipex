@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 18:21:52 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/05 19:38:36 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@ void	ft_exit(void)
 {
 	unlink("here_doc");
 	exit (0);
+}
+
+void	ft_freeacc(char **paths, char **command, char *rightpath, t_struct *s)
+{
+	if (paths)
+		ft_free2d(paths);
+	if (command)
+		ft_free2d(command);
+	if (rightpath == NULL)
+	{
+		free (s);
+		ft_exit ();
+	}
 }
 
 void	ft_heredoc(char **argv)

@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:10:37 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 19:01:30 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/05 19:38:10 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_addscriptname(char *path, char *command)
 	return (newpath);
 }
 
-char	*ft_lookforaccess(char *path, char *arg)
+char	*ft_lookforaccess(char *path, char *arg, t_struct *s)
 {
 	char	**paths;
 	char	**command;
@@ -46,21 +46,16 @@ char	*ft_lookforaccess(char *path, char *arg)
 	paths = ft_split(path, ':');
 	command = ft_split(arg, ' ');
 	rightpath = NULL;
-	if (!command || !paths)
-		ft_exit ();
-	while (paths[i])
+	while (paths[i] && command)
 	{
 		paths[i] = ft_addscriptname(paths[i], command[0]);
 		if (access(paths[i], X_OK) == 0)
 			rightpath = ft_strdup(paths[i]);
 		i++;
 	}
-	ft_free2d(paths);
-	ft_free2d(command);
+	ft_freeacc(paths, command, rightpath, s);
 	if (rightpath)
 		return (rightpath);
-	if (rightpath == NULL)
-		ft_exit ();
 	return (NULL);
 }
 
@@ -89,7 +84,7 @@ int	ft_execute(char **argv, char **env, int i, t_struct *s)
 	char	**args;
 
 	path = ft_searchbinary(env);
-	path = ft_lookforaccess(path, argv[i]);
+	path = ft_lookforaccess(path, argv[i], s);
 	if (ft_strncmp(argv[i], "awk", 3) == 0
 		|| ft_strncmp(argv[i], "grep", 4) == 0
 		|| ft_strncmp(argv[i], "echo", 4) == 0)

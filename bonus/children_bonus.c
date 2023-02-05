@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:12:59 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 18:14:57 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:59:09 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,20 @@ int	ft_createchildren(int argc, char **argv, char **env)
 
 	s = NULL;
 	ft_initstruct(argc, argv, env, &s);
-	i = 2;
+	i = ft_isheredoc(argv);
 	if (pipe(fdpipe) == -1)
 		perror ("Pipe");
 	ft_firstchild(fdpipe, i, s);
 	i += 1;
+	while (argc > 5 && i < argc - 2)
+	{
+		dup2(fdpipe[0], STDIN_FILENO);
+		ft_closepipe(fdpipe);
+		if (pipe(fdpipe) == -1)
+			perror ("Middlepipe");
+		ft_middlechild(fdpipe, i, s);
+		i += 1;
+	}
 	ft_lastchild(fdpipe, i, s);
 	waitpid(0, NULL, 0);
 	return (free(s), 0);

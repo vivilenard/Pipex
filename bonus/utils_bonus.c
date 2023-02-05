@@ -6,11 +6,11 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:12:20 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 18:11:37 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/05 18:21:59 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 void	ft_initstruct(int argc, char **argv, char **env, t_struct **s)
 {

@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:12:59 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 18:14:57 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/05 18:52:41 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,9 @@ void	ft_lastchild(int *fdpipe, int i, t_struct *s)
 	if (pid2 == 0)
 	{
 		dup2(fdpipe[0], STDIN_FILENO);
-		if (ft_strcmp(s->argv[1], "here_doc") != 0)
-			dup2(open(s->argv[s->argc - 1], O_WRONLY, 0644), STDOUT_FILENO);
-		else
-			dup2(open(s->argv[s->argc - 1], O_APPEND
-					| O_WRONLY, 0644), STDOUT_FILENO);
+		dup2(open(s->argv[s->argc - 1], O_WRONLY, 0644), STDOUT_FILENO);
 		ft_closepipe(fdpipe);
 		ft_execute(s->argv, s->env, i, s);
 	}
 	ft_closepipe(fdpipe);
-}
-
-void	ft_middlechild(int *fdpipe, int i, t_struct *s)
-{
-	int	pid3;
-
-	pid3 = fork();
-	if (pid3 == 0)
-	{
-		if (dup2(fdpipe[1], STDOUT_FILENO) == -1)
-			perror ("Middlepipe");
-		ft_closepipe(fdpipe);
-		ft_execute(s->argv, s->env, i, s);
-	}
 }

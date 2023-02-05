@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 18:13:37 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/05 18:42:34 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_exit(void)
 {
-	unlink("here_doc");
+	system ("leaks pipex");
 	exit (0);
 }
 

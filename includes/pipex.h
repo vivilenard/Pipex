@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:11:55 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 20:50:23 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/06 19:27:47 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_struct
 	char	**argv;
 	int		argc;
 	char	**env;
+	int		t_pid;
 }				t_struct;
 
 char	*ft_searchbinary(char **env);

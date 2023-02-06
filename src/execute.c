@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:10:37 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 19:38:10 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/06 17:42:40 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*ft_lookforaccess(char *path, char *arg, t_struct *s)
 	int		i;
 
 	i = 0;
+	if (access(arg, X_OK) == 0)
+		return (free(s), arg);
 	paths = ft_split(path, ':');
 	command = ft_split(arg, ' ');
 	rightpath = NULL;

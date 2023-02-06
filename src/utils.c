@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:12:20 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/05 18:13:57 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/06 20:17:56 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,24 @@ void	ft_initstruct(int argc, char **argv, char **env, t_struct **s)
 	(*s)->env = env;
 }
 
-int	ft_isheredoc(char **argv)
-{
-	if (ft_strcmp(argv[1], "here_doc") == 0)
-		return (3);
-	return (2);
-}
-
 void	ft_checkfiles(int argc, char **argv)
 {
-	open(argv[argc - 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	if (access(argv[1], R_OK) == -1)
+	int	fd;
+
+	fd = open(argv[argc - 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	if (access(argv[argc - 1], R_OK) == -1)
+	{
+		ft_printf("%s: Permission denied\n", argv[argc - 1]);
+		ft_exit ();
+	}
+	if (access(argv[1], F_OK) == -1)
 	{
 		ft_printf("zsh: no such file or directory: %s\n", argv[1]);
 		ft_exit ();
 	}
+	if (access(argv[1], R_OK) == -1)
+		perror(argv[1]);
+	close (fd);
 }
 
 void	ft_emptystr(int argc, char **argv)
@@ -60,4 +63,23 @@ void	ft_closepipe(int *fdpipe)
 		perror ("Closing pipe");
 	if (close(fdpipe[1]) == -1)
 		perror ("Closing pipe");
+}
+
+void	ft_freeacc(char **paths, char **command, char *rightpath, t_struct *s)
+{
+	if (!rightpath)
+	{
+		write(2, "zsh: command not found: ", 24);
+		ft_putstr_fd(command[0], 2);
+		write(2, "\n", 1);
+	}
+	if (paths)
+		ft_free2d(paths);
+	if (command)
+		ft_free2d(command);
+	if (rightpath == NULL)
+	{
+		free (s);
+		ft_exit ();
+	}
 }

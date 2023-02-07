@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: karllenard <karllenard@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:12:20 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/06 20:17:56 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/07 08:43:46 by karllenard       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	ft_checkfiles(int argc, char **argv)
 	fd = open(argv[argc - 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (access(argv[argc - 1], R_OK) == -1)
 	{
-		ft_printf("%s: Permission denied\n", argv[argc - 1]);
+		perror(argv[argc - 1]);
 		ft_exit ();
 	}
 	if (access(argv[1], F_OK) == -1)
 	{
-		ft_printf("zsh: no such file or directory: %s\n", argv[1]);
+		perror(argv[1]);
 		ft_exit ();
 	}
 	if (access(argv[1], R_OK) == -1)

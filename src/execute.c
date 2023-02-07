@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: karllenard <karllenard@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:10:37 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/06 17:42:40 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/07 07:38:02 by karllenard       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ char	**ft_splitonce(char *s)
 	return (str);
 }
 
-int	ft_execute(char **argv, char **env, int i, t_struct *s)
+int	ft_execute(char **argv, char **envp, int i, t_struct *s)
 {
 	char	*path;
 	char	**args;
 
-	path = ft_searchbinary(env);
+	path = ft_searchbinary(envp);
 	path = ft_lookforaccess(path, argv[i], s);
 	if (ft_strncmp(argv[i], "awk", 3) == 0
 		|| ft_strncmp(argv[i], "grep", 4) == 0
@@ -93,7 +93,7 @@ int	ft_execute(char **argv, char **env, int i, t_struct *s)
 		args = ft_splitonce(argv[i]);
 	else
 		args = ft_split(argv[i], ' ');
-	if (execve(path, args, env) == -1)
+	if (execve(path, args, envp) == -1)
 		perror ("Execve");
 	free(path);
 	ft_free2d(args);

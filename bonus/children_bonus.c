@@ -6,11 +6,19 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:12:59 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/06 22:13:51 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/09 10:58:00 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
+
+void	ft_wait(int i, t_struct *s)
+{
+	while (i-- >= 2)
+		waitpid(0, NULL, 0);
+	if (s->t_pid > 0)
+		waitpid(s->t_pid, NULL, 0);
+}
 
 int	ft_createchildren(int argc, char **argv, char **env)
 {
@@ -35,10 +43,7 @@ int	ft_createchildren(int argc, char **argv, char **env)
 		i += 1;
 	}
 	ft_lastchild(fdpipe, i, s);
-	while (i-- >= 2)
-		waitpid(0, NULL, 0);
-	if (s->t_pid > 0)
-		waitpid(s->t_pid, NULL, 0);
+	ft_wait(i, s);
 	return (free(s), 0);
 }
 

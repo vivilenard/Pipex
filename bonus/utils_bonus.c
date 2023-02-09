@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:12:20 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/06 19:44:23 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/09 10:47:57 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,18 @@ int	ft_isheredoc(char **argv)
 
 void	ft_checkfiles(int argc, char **argv)
 {
+	if (access(argv[1], F_OK) == -1)
+		perror(argv[1]);
+	else if (access(argv[1], R_OK) == -1)
+		perror(argv[1]);
 	if (ft_strcmp(argv[1], "here_doc") != 0)
 		open(argv[argc - 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	else
 		open(argv[argc - 1], O_CREAT | O_APPEND | O_WRONLY, 0644);
-	if (access(argv[1], F_OK) == -1)
-	{
-		ft_printf("zsh: no such file or directory: %s\n", argv[1]);
-		ft_exit ();
-	}
-	if (access(argv[1], R_OK) == -1)
-		perror(argv[1]);
 	open(argv[argc - 1], O_WRONLY);
 	if (access(argv[argc - 1], R_OK) == -1)
 	{
-		ft_printf("%s: Permission denied\n", argv[argc - 1]);
+		perror(argv[argc - 1]);
 		ft_exit ();
 	}
 }

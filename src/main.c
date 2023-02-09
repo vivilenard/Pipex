@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/07 17:20:39 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/09 10:58:31 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_exit(void)
 {
+	unlink("empty");
+	system ("leaks pipex");
 	exit (0);
 }
 
@@ -32,6 +34,8 @@ int	main(int argc, char **argv, char **env)
 	ft_checkfiles(argc, argv);
 	ft_emptystr(argc, argv);
 	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		fd = open("empty", O_CREAT | O_RDONLY);
 	fd = dup2(fd, STDIN_FILENO);
 	ft_createchildren(argc, argv, env);
 	ft_exit();

@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 12:12:20 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/07 17:20:43 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/09 10:38:49 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,16 @@ void	ft_checkfiles(int argc, char **argv)
 {
 	int	fd;
 
+	if (access(argv[1], F_OK) == -1)
+		perror(argv[1]);
+	else if (access(argv[1], R_OK) == -1)
+		perror(argv[1]);
 	fd = open(argv[argc - 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (access(argv[argc - 1], R_OK) == -1)
 	{
 		perror(argv[argc - 1]);
 		ft_exit ();
 	}
-	if (access(argv[1], F_OK) == -1)
-	{
-		perror(argv[1]);
-		ft_exit ();
-	}
-	if (access(argv[1], R_OK) == -1)
-		perror(argv[1]);
 	close (fd);
 }
 

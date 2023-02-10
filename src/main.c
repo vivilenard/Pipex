@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:13:19 by vlenard           #+#    #+#             */
-/*   Updated: 2023/02/09 10:58:31 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/02/09 12:30:22 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_exit(void)
 {
 	unlink("empty");
-	system ("leaks pipex");
 	exit (0);
 }
 
